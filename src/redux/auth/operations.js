@@ -1,24 +1,65 @@
 import axios from 'axios'
 import { createAsyncThunk } from '@reduxjs/toolkit'
+import { authApi } from '../../api/authApi'
 
-axios.defaults.baseURL = "https://reqres.in/"
-axios.defaults.headers.post['Content-Type'] = 'application/json';
-axios.defaults.headers["x-api-key"] = "reqres-free-v1";
+axios.defaults.baseURL = "https://connections-api.goit.global/"
+
+const setAuthHeader = token => {
+  axios.defaults.headers.common.Authorization = `Bearer ${token}`
+}
+
+const clearAuthHeader = () => {
+  axios.defaults.headers.common.Authorization = ""
+}
 
 
-
-export const register = createAsyncThunk("api/register", async (userData, thunkAPI) => {
+export const register = createAsyncThunk("users/signup", async (userData, thunkAPI) => {
   try {
-    const response = await axios.post("/api/register", userData)
+    const response = await authApi.post("/users/signup", userData)
+    if (response.data.token) {
+      setAuthHeader(response.data.token)
+    } else {
+      return thunkAPI.rejectWithValue("token bulunamadı")
+    }
+    return response.data
+
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.message)
+  }
+})
+
+export const login = createAsyncThunk("users/login", async (userData, thunkAPI) => {
+  try {
+    const response = await authApi.post("/users/login", userData)
+    if (response.data.token) {
+      setAuthHeader(response.data.token)
+    } else {
+      return thunkAPI.rejectWithValue("token bulunamadı")
+    }
     return response.data
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message)
   }
 })
 
-export const login = createAsyncThunk("api/login", async (userData, thunkAPI) => {
+export const logout = createAsyncThunk("users/logout", async (_, thunkAPI) => {
   try {
-    const response = await axios.post("/api/login", userData)
+    await authApi.post("/users/logout")
+    clearAuthHeader()
+  } catch (err) {
+    return thunkAPI.rejectWithValue(err.message)
+  }
+
+})
+
+
+export const refresh = createAsyncThunk("users/current", async (_, thunkAPI) => {
+  const state = thunkAPI.getState()
+  const token = state.auth.token
+  if (!token) return thunkAPI.rejectWithValue("Token bulunamadı")
+  setAuthHeader(token)
+  try {
+    const response = await authApi.get("/users/current")
     return response.data
   } catch (err) {
     return thunkAPI.rejectWithValue(err.message)
