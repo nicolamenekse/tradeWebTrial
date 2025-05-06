@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../redux/auth/operations";
-import { selectIsLoggedIn } from "../redux/auth/selectors";
-import ProductPage from "./ProductPage";
+import { login } from "../../redux/auth/operations";
+import { selectIsLoggedIn } from "../../redux/auth/selectors";
+import ProductPage from "../Productpage/ProductPage";
 import { Formik, Form, Field } from "formik";
 import * as Yup from "yup";
 

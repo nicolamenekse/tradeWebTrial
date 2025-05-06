@@ -1,14 +1,17 @@
 import React, { useEffect } from "react";
-import RegisterPage from "./pages/RegisterPage";
-import LoginPage from "./pages/LoginPage";
+import RegisterPage from "./pages/Registerpage/RegisterPage";
+import LoginPage from "./pages/Loginpage/LoginPage";
+import HomePage from "./pages/Homepage/HomePage";
+import ProductPage from "./pages/Productpage/ProductPage";
 import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
-import HomePage from "./pages/HomePage";
+
 import { useDispatch, useSelector } from "react-redux";
 import { selectRefreshing } from "./redux/auth/selectors";
-import ProductPage from "./pages/ProductPage";
+
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
 import { refresh } from "./redux/auth/operations";
+
 export default function App() {
   const isRefreshing = useSelector(selectRefreshing);
   const dispatch = useDispatch();
