@@ -121,7 +121,7 @@ export default function GameSearch() {
                 target="blank"
                 className="arrow"
               >
-                <FaArrowRight /> {game.title}
+               {game.title}
               </a>
               <button className="deleteClick" onClick={()=>deleteClick(game.id)} >Sil</button>
             </li>

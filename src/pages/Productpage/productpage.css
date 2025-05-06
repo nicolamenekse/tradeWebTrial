@@ -25,13 +25,16 @@ a {
 li {
   color: #4FAF44;
   display: flex;
-  justify-content: space-around;
+  gap: 20px;
   align-items: center;
   text-align: center;
 margin-top: 20px;
 }
 
-
+ul{
+    display: flex;
+    flex-direction: column;
+}
 
 
 .arrow i {
