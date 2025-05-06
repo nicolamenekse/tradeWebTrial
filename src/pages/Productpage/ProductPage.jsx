@@ -3,6 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { addGame, deleteGame } from "../../redux/product/productOperations";
 import { selectItems } from "../../redux/product/productSelectors";
+import "./productpage.css";
 export default function GameSearch() {
   const [gameName, setGameName] = useState("");
   const dispatch = useDispatch();
@@ -43,8 +44,7 @@ export default function GameSearch() {
     };
 
     dispatch(addGame(newGame));
-    alert("Oyun kaydedildi!");
-  };
+  };  
 
   const deleteClick = (id)=>{
     dispatch(deleteGame(id))
@@ -71,7 +71,7 @@ export default function GameSearch() {
             target="_blank"
             className="arrow"
           >
-            <FaArrowRight /> Tetris
+           Tetris
           </a>
         </li>
         <li>
@@ -80,7 +80,7 @@ export default function GameSearch() {
             target="_blank"
             className="arrow"
           >
-            <FaArrowRight /> Super Mario
+          Super Mario
           </a>
         </li>
         <li>
@@ -89,7 +89,7 @@ export default function GameSearch() {
             target="_blank"
             className="arrow"
           >
-            <FaArrowRight /> Ateş ve Su
+           Ateş ve Su
           </a>
         </li>
         <li>
@@ -98,7 +98,7 @@ export default function GameSearch() {
             target="_blank"
             className="arrow"
           >
-            <FaArrowRight /> Tokat Atma!
+           Tokat Atma!
           </a>
         </li>
         <li>
@@ -107,7 +107,7 @@ export default function GameSearch() {
             target="_blank"
             className="arrow"
           >
-            <FaArrowRight /> Street Fighter
+             Street Fighter
           </a>
         </li>
       </ol>
@@ -123,7 +123,7 @@ export default function GameSearch() {
               >
                 <FaArrowRight /> {game.title}
               </a>
-              <button onClick={()=>deleteClick(game.id)} >Sil</button>
+              <button className="deleteClick" onClick={()=>deleteClick(game.id)} >Sil</button>
             </li>
             
           );
