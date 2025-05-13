@@ -1,27 +1,25 @@
-
 import { combineReducers, configureStore } from '@reduxjs/toolkit'
 import { persistStore, persistReducer } from 'redux-persist'
 import storage from 'redux-persist/lib/storage'
 
 import authReducer from './auth/slice'
-import contactsReducer from './product/productSlice'
+import gamesReducer from './games/slice'
 
 const authPersistConfig = {
     key: "auth",
     storage,
-    whitelist: ["token","user"]
+    whitelist: ["token", "user"]
 }
 
-const productsPersistConfig = {
-    key:"products",
+const gamesPersistConfig = {
+    key: "games",
     storage,
-    whitelist:["items"]
+    whitelist: ["scores"]
 }
-
 
 const rootReducer = combineReducers({
     auth: persistReducer(authPersistConfig, authReducer),
-    products:persistReducer(productsPersistConfig,contactsReducer)
+    games: persistReducer(gamesPersistConfig, gamesReducer)
 })
 
 export const store = configureStore({

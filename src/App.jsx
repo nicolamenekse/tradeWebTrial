@@ -1,16 +1,22 @@
 import React, { useEffect } from "react";
+import { Routes, Route } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { selectRefreshing } from "./redux/auth/selectors";
+import { refresh } from "./redux/auth/operations";
+
+// Pages
 import RegisterPage from "./pages/Registerpage/RegisterPage";
 import LoginPage from "./pages/Loginpage/LoginPage";
 import HomePage from "./pages/Homepage/HomePage";
-import ProductPage from "./pages/Productpage/ProductPage";
-import { Routes, Route, Link, BrowserRouter } from "react-router-dom";
 
-import { useDispatch, useSelector } from "react-redux";
-import { selectRefreshing } from "./redux/auth/selectors";
+// Games
+import SnakeGame from "./games/SnakeGame/SnakeGame";
+import MemoryGame from "./games/MemoryGame/MemoryGame";
+import TicTacToe from "./games/TicTacToe/TicTacToe";
 
+// Components
 import RestrictedRoute from "./components/RestrictedRoute";
 import PrivateRoute from "./components/PrivateRoute";
-import { refresh } from "./redux/auth/operations";
 
 export default function App() {
   const isRefreshing = useSelector(selectRefreshing);
@@ -23,7 +29,7 @@ export default function App() {
   return (
     <>
       {isRefreshing ? (
-        <p>Refresh user</p>
+        <p>Yükleniyor...</p>
       ) : (
         <Routes>
           <Route path="/" element={<HomePage />} />
@@ -32,7 +38,7 @@ export default function App() {
             path="/register"
             element={
               <RestrictedRoute
-                direktGit="/products"
+                direktGit="/"
                 element={<RegisterPage />}
               />
             }
@@ -40,13 +46,27 @@ export default function App() {
           <Route
             path="/login"
             element={
-              <RestrictedRoute direktGit="/products" element={<LoginPage />} />
+              <RestrictedRoute 
+                direktGit="/" 
+                element={<LoginPage />} 
+              />
             }
           />
+
+          {/* Oyun Rotaları */}
           <Route
-            path="products"
-            element={<PrivateRoute direktGit="/" element={<ProductPage />} />}
+            path="/games/snake"
+            element={<PrivateRoute direktGit="/" element={<SnakeGame />} />}
           />
+          <Route
+            path="/games/memory"
+            element={<PrivateRoute direktGit="/" element={<MemoryGame />} />}
+          />
+          <Route
+            path="/games/tictactoe"
+            element={<PrivateRoute direktGit="/" element={<TicTacToe />} />}
+          />
+
           <Route path="*" element={<HomePage />} />
         </Routes>
       )}
