@@ -3,6 +3,7 @@ import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
 import { useDispatch } from "react-redux";
 import { register } from "../../redux/auth/operations";
+import "./RegisterPage.module.css";
 
 export default function RegisterPage() {
   const dispatch = useDispatch();

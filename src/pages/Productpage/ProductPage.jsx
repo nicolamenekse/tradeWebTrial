@@ -3,7 +3,7 @@ import { FaArrowRight } from "react-icons/fa";
 import { useDispatch, useSelector } from "react-redux";
 import { addGame, deleteGame } from "../../redux/product/productOperations";
 import { selectItems } from "../../redux/product/productSelectors";
-import "./productpage.css";
+import "./ProductPage.module.css";
 export default function GameSearch() {
   const [gameName, setGameName] = useState("");
   const dispatch = useDispatch();
